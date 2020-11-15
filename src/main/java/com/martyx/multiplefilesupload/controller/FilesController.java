@@ -26,13 +26,13 @@ public class FilesController {
     FileStorageService fileStorageService;
 
     @PostMapping("/upload")
-    public ResponseEntity <ResponseMessage> uploadFiles (@RequestParam("multipartFiles") MultipartFile[] multipartFiles){
+    public ResponseEntity <ResponseMessage> uploadFiles (@RequestParam("file") MultipartFile[] files){
         String message = "";
 
         try {
             List <String> fileNames = new ArrayList<>(); //vytvorim si List kde budem uchovavam mena suborov
 
-            Arrays.asList(multipartFiles).stream().forEach(file -> { // nahrane subory prezeniem streamom cez metodu ktora mi ich ulozi
+            Arrays.asList(files).stream().forEach(file -> { // nahrane subory prezeniem streamom cez metodu ktora mi ich ulozi
                 fileStorageService.save(file);
                 fileNames.add(file.getOriginalFilename()); // ulozim mena po jednom zo streamu do mojho Listu
             });
